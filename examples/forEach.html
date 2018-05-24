@@ -4,7 +4,6 @@
 
 // forEach broken down and written as a function expression.
 function forEach(array, callback, optionalThisObject) {
-  // Checking if passed an optional this.
   if (optionalThisObject) {
     callback = callback.bind(optionalThisObject);
   }
@@ -40,9 +39,9 @@ tests({
     });
   },
   'It should accept an optional this object': () => {
-    forEach([1], () => {
-      eq(this.description, 'I am a configurable this object');
-    }, {description: 'I am a configurable this object'});
+    forEach([1], function() {
+      eq(this.description, 'I am a configurable this object.');
+    }, {description: 'I am a configurable this object.'});
   }
 });
 </script>
