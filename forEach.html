@@ -1,0 +1,48 @@
+<script src="../tinytest.js"></script>
+<script>
+
+
+// forEach broken down and written as a function expression.
+function forEach(array, callback, optionalThisObject) {
+  // Checking if passed an optional this.
+  if (optionalThisObject) {
+    callback = callback.bind(optionalThisObject);
+  }
+  for(let i = 0; i < array.length; i++) {
+    callback(array[i], i, array);
+  }
+};
+
+
+tests({
+
+  'It should run the callback function array.length times': () => {
+    let numberOfTimesCallbackHasRun = 0;
+    forEach([1, 2, 3], () => {
+      numberOfTimesCallbackHasRun++;
+    });
+    eq(numberOfTimesCallbackHasRun, 3);
+  },
+  'It should pass the ith element as the first argument to the callback': () => {
+    forEach([1], (number) => {
+      eq(number, 1);
+    });
+  },
+  'It should pass in the ith position as the second argument to the callback': () => {
+    forEach([1], (number, index) => {
+      eq(index, 0);
+    });
+  },
+  'It should pass in the original array as the third argument to the callback': () => {
+    let testArray = [1, 2, 3];
+    forEach(testArray, (number, index, originalArray) => {
+      eq(originalArray, testArray);
+    });
+  },
+  'It should accept an optional this object': () => {
+    forEach([1], () => {
+      eq(this.description, 'I am a configurable this object');
+    }, {description: 'I am a configurable this object'});
+  }
+});
+</script>
