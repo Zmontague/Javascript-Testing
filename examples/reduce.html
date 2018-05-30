@@ -1,4 +1,4 @@
-<script src="../tinytest.js"></script>
+<script src="../simpletest.js"></script>
 <script>
 
 // Prototype implementation.
@@ -94,6 +94,7 @@ tests({
     eq(numberOfTimesCallBackHasRun, 1);
   },
   'If no initailValue, callback should run array.length - 1 times.': () => {
+    fail();
     let numberOfTimesCallBackHasRun = 0;
     reduce([1], () => {
       numberOfTimesCallBackHasRun++;
